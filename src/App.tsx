@@ -47,8 +47,11 @@ function App() {
     sulfur: 0,
   });
   const updateSatchelNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if(e.currentTarget.value)
-    setSatchel(parseInt(e.currentTarget.value));
+    if(parseInt(e.currentTarget.value) < 0) {
+      setSatchel(0);
+    } else {
+      setSatchel(parseInt(e.currentTarget.value));
+    }
   }
 
   useEffect(() => {
@@ -56,10 +59,10 @@ function App() {
       rope: satchel * 1,
       smallStash: satchel * 1,
       beancanGrenade: satchel * 4,
-      gunPowder: resource.beancanGrenade * 60,
-      metalFragments: resource.beancanGrenade * 20,
-      charcoal: resource.gunPowder * 3,
-      sulfur: resource.gunPowder * 2
+      gunPowder: satchel * 240,
+      metalFragments: satchel * 120,
+      charcoal: satchel * 3 * 240,
+      sulfur: satchel * 2 * 240
     }));
   }, [satchel]);
 
@@ -79,7 +82,7 @@ function App() {
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateSatchelNumber(e)}
                   id="satchel-input"
                   label="Satchel Charge"
-                  defaultValue={satchel}
+                  value={satchel}
                   variant="outlined"
                 />
               </div>
