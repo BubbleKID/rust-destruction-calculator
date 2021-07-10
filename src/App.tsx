@@ -125,7 +125,8 @@ function App() {
           <Grid item xl={3}>  
             <Paper className={classes.paper}>
               <div className={classes.inputContainer}>
-                <Avatar variant="square" alt="Metal_Fragments_icon" src="/assets/images/Metal_Fragments_icon.png" className={classes.icon} />
+                <Avatar variant="square" alt="Gun_powder_icon" src="/assets/images/Gun_Powder_icon.png" className={classes.icon} />
+               
                 <TextField
                   className={classes.textField}
                   id="gun-powder-input"
@@ -135,7 +136,7 @@ function App() {
                 />
               </div>
               <div className={classes.inputContainer}>
-                <Avatar variant="square" alt="Gun_powder_icon" src="/assets/images/Gun_Powder_icon.png" className={classes.icon} />
+                <Avatar variant="square" alt="Metal_Fragments_icon" src="/assets/images/Metal_Fragments_icon.png" className={classes.icon} />
                 <TextField
                   className={classes.textField}
                   id="metal-fragments-input"
