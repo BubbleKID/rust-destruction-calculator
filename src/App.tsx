@@ -2,12 +2,13 @@ import React,  { useState, useEffect } from 'react';
 import './App.css';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Paper, TextField, Avatar, Typography } from '@material-ui/core';
+import Material from './components/Material';
  
 const useStyles = makeStyles((theme) => ({
   root: {
     paddingLeft: '20vw',
     paddingRight: '20vw',
-    paddingTop: '20vh',
+    paddingTop: theme.spacing(10),
     display: 'flex',
     justifyContent: 'center',
     flexGrow: 1,
@@ -31,7 +32,11 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     marginTop: theme.spacing(2),
-  }
+  },
+  typo: {
+    paddingTop: '20vh',
+    color: '#fff',
+  },
 }));
 
 function App() {
@@ -68,107 +73,31 @@ function App() {
 
   return (
       <div className="App">
-        <Typography variant="h3" gutterBottom>
+        <Typography variant="h3" className={classes.typo} gutterBottom>
           Rust Destruction Calculator
         </Typography>
         <Grid className={classes.root} container spacing={3}>
           <Grid item xl={3}>
             <Paper className={classes.paper}>    
-              <div className={classes.inputContainer}> 
-                <Avatar variant="square" alt="Satchel_icon" src="/assets/images/Satchel_icon.png" className={classes.icon} />
-                <TextField
-                  className={classes.textField}
-                  type="number"
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateSatchelNumber(e)}
-                  id="satchel-input"
-                  label="Satchel Charge"
-                  value={satchel}
-                  variant="outlined"
-                />
-              </div>
+              <Material onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateSatchelNumber(e)} id="satchel-input" image="Satchel_icon" label="Satchel" value={satchel} />
             </Paper>
           </Grid>
           <Grid item xl={3}>
             <Paper className={classes.paper}>
-              <div className={classes.inputContainer}>
-                <Avatar variant="square" alt="Rope_icon" src="/assets/images/Rope_icon.png" className={classes.icon} />
-                <TextField
-                  className={classes.textField}
-                  id="rope-input"
-                  label="Rope"
-                  value={resource.rope}
-                  variant="outlined"
-                />
-              </div>
-              <div className={classes.inputContainer}>
-                <Avatar variant="square" alt="Small_Stash_icon" src="/assets/images/Small_Stash_icon.png" className={classes.icon} />
-                <TextField
-                  className={classes.textField}
-                  id="stash-input"
-                  label="Small Stash"
-                  value={resource.smallStash}
-                  variant="outlined"
-                />
-              </div>
-              <div className={classes.inputContainer}>
-                <Avatar variant="square" alt="Beancan_Grenade_icon" src="/assets/images/Beancan_Grenade_icon.png" className={classes.icon} />
-                <TextField
-                  className={classes.textField}
-                  id="beancan-grenade-input"
-                  label="Beancan Grenade"
-                  value={resource.beancanGrenade}
-                  variant="outlined"
-                />
-              </div>
+              <Material id="stash-input" image="Small_Stash_icon" label="Small Stash" value={resource.smallStash} />
+              <Material id="beancan-grenade-input" image="Beancan_Grenade_icon" label="Beancan Grenade" value={resource.beancanGrenade} />
             </Paper>
           </Grid>
           <Grid item xl={3}>  
             <Paper className={classes.paper}>
-              <div className={classes.inputContainer}>
-                <Avatar variant="square" alt="Gun_powder_icon" src="/assets/images/Gun_Powder_icon.png" className={classes.icon} />
-               
-                <TextField
-                  className={classes.textField}
-                  id="gun-powder-input"
-                  label="Gun Powder"
-                  value={resource.gunPowder}
-                  variant="outlined"
-                />
-              </div>
-              <div className={classes.inputContainer}>
-                <Avatar variant="square" alt="Metal_Fragments_icon" src="/assets/images/Metal_Fragments_icon.png" className={classes.icon} />
-                <TextField
-                  className={classes.textField}
-                  id="metal-fragments-input"
-                  label="Metal Fragments"
-                  value={resource.metalFragments}
-                  variant="outlined"
-                />
-              </div>
+              <Material id="gun-powder-input" image="Gun_powder_icon" label="Gun Powder" value={resource.gunPowder} />
+              <Material id="metal-fragments-input" image="Metal_Fragments_icon" label="Metal Fragments" value={resource.metalFragments} />
             </Paper>
           </Grid> 
           <Grid item xl={3}>  
             <Paper className={classes.paper}>
-              <div className={classes.inputContainer}>
-                <Avatar variant="square" alt="Trevor Henderson" src="/assets/images/Charcoal_icon.png" className={classes.icon} />
-                <TextField
-                  className={classes.textField}
-                  id="charcoal-input"
-                  label="Charcoal"
-                  value={resource.charcoal}
-                  variant="outlined"
-                />
-              </div>
-              <div className={classes.inputContainer}>
-                <Avatar variant="square" alt="Trevor Henderson" src="/assets/images/Sulfur_icon.png" className={classes.icon} />
-                <TextField
-                  className={classes.textField}
-                  id="sulfur-input"
-                  label="Sulfur"
-                  value={resource.sulfur}
-                  variant="outlined"
-                />
-              </div>
+              <Material id="charcoal-input" image="Charcoal_icon" label="Charcoal" value={resource.charcoal} />
+              <Material id="sulfur-input" image="Sulfur_icon" label="Sulfur" value={resource.sulfur} />
             </Paper>
           </Grid>       
         </Grid>
