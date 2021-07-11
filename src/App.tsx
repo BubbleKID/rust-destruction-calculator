@@ -90,7 +90,7 @@ function App() {
           </Grid>
           <Grid item xl={3}>  
             <Paper className={classes.paper}>
-              <Material id="gun-powder-input" image="Gun_powder_icon" label="Gun Powder" value={resource.gunPowder} />
+              <Material id="gun-powder-input" image="Gun_Powder_icon" label="Gun Powder" value={resource.gunPowder} />
               <Material id="metal-fragments-input" image="Metal_Fragments_icon" label="Metal Fragments" value={resource.metalFragments} />
             </Paper>
           </Grid> 
