@@ -1,7 +1,7 @@
 import React,  { useState, useEffect } from 'react';
 import './App.css';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Paper, TextField, Avatar, Typography } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import Material from './components/Material';
  
 const useStyles = makeStyles((theme) => ({
@@ -15,11 +15,6 @@ const useStyles = makeStyles((theme) => ({
   },
   container: {
     width: '600px', 
-  },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
   },
   textField: {
     marginLeft: theme.spacing(2),
@@ -42,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
 function App() {
   const classes = useStyles();
   const [satchel, setSatchel] = useState(0);
+  const [timedExplosiveCharge, setTimedExplosiveCharge] = useState(0);
   const [resource, setResource] = useState({
     rope: 0,
     smallStash: 0,
@@ -50,12 +46,14 @@ function App() {
     metalFragments: 0,
     charcoal: 0,
     sulfur: 0,
+    explosives: 0
   });
-  const updateSatchelNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if(parseInt(e.currentTarget.value) < 0) {
-      setSatchel(0);
+
+  const updateGoodNumber = (e: React.ChangeEvent<HTMLInputElement>, setStateFunction: React.Dispatch<React.SetStateAction<number>>) => {
+    if(parseInt(e.currentTarget.value) < 0 || e.currentTarget.value === '') {
+      setStateFunction(0);
     } else {
-      setSatchel(parseInt(e.currentTarget.value));
+      setStateFunction(parseInt(e.currentTarget.value));
     }
   }
 
@@ -64,12 +62,13 @@ function App() {
       rope: satchel * 1,
       smallStash: satchel * 1,
       beancanGrenade: satchel * 4,
-      gunPowder: satchel * 240,
-      metalFragments: satchel * 120,
-      charcoal: satchel * 3 * 240,
-      sulfur: satchel * 2 * 240
+      gunPowder: satchel * 240 + timedExplosiveCharge * 20 * 50,
+      metalFragments: satchel * 120 + timedExplosiveCharge * 20 * 10,
+      charcoal: satchel * 3 * 240 + timedExplosiveCharge * 20 * 50 * 3,
+      sulfur: satchel * 2 * 240 + timedExplosiveCharge * 20 * (10 + 50 * 2),
+      explosives: timedExplosiveCharge * 20,
     }));
-  }, [satchel]);
+  }, [satchel, timedExplosiveCharge]);
 
   return (
       <div className="App">
@@ -78,27 +77,21 @@ function App() {
         </Typography>
         <Grid className={classes.root} container spacing={3}>
           <Grid item xl={3}>
-            <Paper className={classes.paper}>    
-              <Material onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateSatchelNumber(e)} id="satchel-input" image="Satchel_icon" label="Satchel" value={satchel} />
-            </Paper>
+            <Material disabled={false} onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateGoodNumber(e, setSatchel)} id="satchel-input" image="Satchel_icon" label="Satchel" value={satchel} />
+            <Material disabled={false} onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateGoodNumber(e, setTimedExplosiveCharge)} id="timed-explosive-charge-input" image="Timed_Explosive_Charge_icon" label="Timed Explosive Charge" value={timedExplosiveCharge} />
           </Grid>
           <Grid item xl={3}>
-            <Paper className={classes.paper}>
-              <Material id="stash-input" image="Small_Stash_icon" label="Small Stash" value={resource.smallStash} />
-              <Material id="beancan-grenade-input" image="Beancan_Grenade_icon" label="Beancan Grenade" value={resource.beancanGrenade} />
-            </Paper>
+            <Material disabled={true} id="stash-input" image="Small_Stash_icon" label="Small Stash" value={resource.smallStash} />
+            <Material disabled={true} id="beancan-grenade-input" image="Beancan_Grenade_icon" label="Beancan Grenade" value={resource.beancanGrenade} />
+            <Material disabled={true} id="explosives-input" image="Explosives_icon" label="Explosives" value={resource.explosives} />
           </Grid>
-          <Grid item xl={3}>  
-            <Paper className={classes.paper}>
-              <Material id="gun-powder-input" image="Gun_Powder_icon" label="Gun Powder" value={resource.gunPowder} />
-              <Material id="metal-fragments-input" image="Metal_Fragments_icon" label="Metal Fragments" value={resource.metalFragments} />
-            </Paper>
+          <Grid item xl={3}>
+            <Material disabled={true} id="gun-powder-input" image="Gun_Powder_icon" label="Gun Powder" value={resource.gunPowder} />
+            <Material disabled={true} id="metal-fragments-input" image="Metal_Fragments_icon" label="Metal Fragments" value={resource.metalFragments} />
           </Grid> 
-          <Grid item xl={3}>  
-            <Paper className={classes.paper}>
-              <Material id="charcoal-input" image="Charcoal_icon" label="Charcoal" value={resource.charcoal} />
-              <Material id="sulfur-input" image="Sulfur_icon" label="Sulfur" value={resource.sulfur} />
-            </Paper>
+          <Grid item xl={3}>
+            <Material disabled={true} id="charcoal-input" image="Charcoal_icon" label="Charcoal" value={resource.charcoal} />
+            <Material disabled={true} id="sulfur-input" image="Sulfur_icon" label="Sulfur" value={resource.sulfur} />
           </Grid>       
         </Grid>
       </div>

@@ -1,13 +1,14 @@
-import React,  { useState, useEffect } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { TextField, Avatar } from '@material-ui/core';
+import { TextField, Avatar, Paper } from '@material-ui/core';
  
 type Props = {
     value: number,
     image: string,
     id: string,
     label: string,
-    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void,
+    disabled: boolean
 };
   
 const useStyles = makeStyles((theme) => ({
@@ -22,11 +23,6 @@ const useStyles = makeStyles((theme) => ({
   container: {
     width: '600px', 
   },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  },
   textField: {
     marginLeft: theme.spacing(2),
   },
@@ -34,17 +30,21 @@ const useStyles = makeStyles((theme) => ({
     width: theme.spacing(10),
     height: theme.spacing(10),
   },
-  inputContainer: {
+  paper: {
     display: 'flex',
     alignItems: 'center',
     marginTop: theme.spacing(2),
+   
+    padding: theme.spacing(2),
+    textAlign: 'center',    
+
   }
 }));
 
 const Material: React.FC <Props> = (props) => {
   const classes = useStyles();
   return (
-    <div className={classes.inputContainer}>
+    <Paper className={classes.paper}>
         <Avatar variant="square" alt={props.image}  src={`/assets/images/${props.image}.png`} className={classes.icon} />
         <TextField
             type="number"
@@ -54,8 +54,9 @@ const Material: React.FC <Props> = (props) => {
             label={props.label}
             value={props.value}
             variant="outlined"
+            disabled={props.disabled}
         />
-    </div>
+    </Paper>
   );
 }
 
